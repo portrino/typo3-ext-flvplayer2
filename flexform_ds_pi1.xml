@@ -36,8 +36,24 @@
 								<show_thumbs>1</show_thumbs>
 							</config>
 						</TCEforms>
-					</file>
-					
+					</file>				
+					<image>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.s_def.image</label>
+							<config>
+								<type>group</type>
+								<internal_type>file</internal_type>
+								<allowed>jpg,jpeg,gif,png</allowed>
+								<max_size>1000</max_size>
+								<uploadfolder>uploads/tx_flvplayer</uploadfolder>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</image>
 				</el>
 			</ROOT>
 		</sDEF>
@@ -95,6 +111,33 @@
 							</config>
 						</TCEforms>
 					</fullscreen>
+					<controlbar>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.s_player.controlbar</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>									
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.bottom</numIndex>
+										<numIndex index="1">bottom</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.over</numIndex>
+										<numIndex index="1">over</numIndex>
+									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.none</numIndex>
+										<numIndex index="1">none</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</controlbar>
 				</el>
 			</ROOT>
 		</sPLAYER>

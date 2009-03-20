@@ -58,6 +58,8 @@ plugin.tx_flvplayer_pi1 {
 		
 		// Auto start
 		autoStart = {$plugin.tx_flvplayer_pi1.playerParams.autoStart}
+		
+		controlbar = {$plugin.tx_flvplayer_pi1.playerParams.controlbar}
 	}
 	
 	// Default CSS styling

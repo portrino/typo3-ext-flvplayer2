@@ -39,15 +39,16 @@ plugin.tx_flvplayer_pi1 {
 	
 	# cat=flvplayer2/enable/5; type=boolean; label=Fullscreen: Allow fullscreen play.
 	playerParams.fullScreen = 1
+
+	# cat=flvplayer2/enable/6; type=string; label=Control Bar position
+	playerParams.controlbar = bottom
+
 	
 	# cat=flvplayer2/dims/0; type=int+; label=Width: Control the width of the header (used for both the swf file and the replacement picture).
 	width = 600
 	
 	# cat=flvplayer2/dims/1; type=int+; label=Height: Control the height of the header (used for both the swf file and the replacement picture).
 	height = 450
-
-	# cat=flvplayer2/file/0; type=string; label=FLV player: The SWF file containing the FLV player.
-	flvplayer = EXT:flvplayer2/pi1/flvplayer.swf
 	
 	# cat=flvplayer2//0; type=int+; label=Flash version: The version of the Flash plugin required to view the headers.
 	version = 9

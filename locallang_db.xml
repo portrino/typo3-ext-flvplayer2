@@ -12,6 +12,7 @@
 			<label index="tt_content.list_type_pi1">FLV Player</label>
 			<label index="tt_content.flexform_pi1.s_def">Main</label>
 			<label index="tt_content.flexform_pi1.s_def.file">FLV file</label>
+			<label index="tt_content.flexform_pi1.s_def.image">Image</label>
 			<label index="tt_content.flexform_pi1.s_def.url">FLV URL</label>
 			<label index="tt_content.flexform_pi1.s_player">Player settings</label>
 			<label index="tt_content.flexform_pi1.s_player.autostart">Auto start</label>
@@ -30,11 +31,16 @@
 			<label index="tt_content.flexform_pi1.LGL.default">Default</label>
 			<label index="tt_content.flexform_pi1.LGL.no">No</label>
 			<label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
+			<label index="tt_content.flexform_pi1.s_player.controlbar">Menu</label>
+			<label index="tt_content.flexform_pi1.bottom">Bottom</label>
+			<label index="tt_content.flexform_pi1.over">Over</label>
+			<label index="tt_content.flexform_pi1.none">None</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="tt_content.list_type_pi1">Lecteur FLV</label>
 			<label index="tt_content.flexform_pi1.s_def">Gï¿½nï¿½ral</label>
 			<label index="tt_content.flexform_pi1.s_def.file">Fichier FLV</label>
+			<label index="tt_content.flexform_pi1.s_def.image">Image</label>
 			<label index="tt_content.flexform_pi1.s_player">Paramï¿½tres du lecteur</label>
 			<label index="tt_content.flexform_pi1.s_player.autostart">Lecture automatique</label>
 			<label index="tt_content.flexform_pi1.s_player.fullscreen">Permettre la lecture plein ï¿½cran</label>

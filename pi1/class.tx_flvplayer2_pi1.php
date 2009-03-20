@@ -29,17 +29,6 @@
 	 * @version		1.0
 	 */
 	
-	/**
-	 * [CLASS/FUNCTION INDEX OF SCRIPT]
-	 * 
-	 * SECTION:		1 - MAIN
-	 *      99:		function main($content,$conf)
-	 *     132:		function setConfig
-	 *     169:		function buildFlashCode
-	 *     211:		function writeFlashObjectParams
-	 * 
-	 *				TOTAL FUNCTIONS: 4
-	 */
 	
 	// Typo3 FE plugin class
 	require_once(PATH_tslib.'class.tslib_pibase.php');
@@ -49,9 +38,7 @@
 	
 	class tx_flvplayer2_pi1 extends tslib_pibase {
 		
-		
-		
-		
+				
 		
 		/***************************************************************
 		 * SECTION 0 - VARIABLES
@@ -135,9 +122,11 @@
 			$flex2conf = array(
 				'url' => 'sDEF:url',
 				'file' => 'sDEF:file',
+				'image' => 'sDEF:image',
 				'playerParams.' => array(
 					'autoStart' => 'sPLAYER:autostart',
 					'fullScreen' => 'sPLAYER:fullscreen',
+					'controlbar' => 'sPLAYER:controlbar',
 				),
 				'width' => 'sFLASH:width',
 				'height' => 'sFLASH:height',
@@ -185,26 +174,6 @@
 			// Storage
 			$htmlCode = array();
 			
-			/*
-			// Add the swfobject JS script to the page header
-			$GLOBALS['TSFE']->additionalHeaderData[$this->pi1->prefixId] .= '<script type="text/javascript" src="'.$extPath.'pi1/swfobject.js"></script>';
-			
-			// We generate a random id for the container just in case we place more than
-			// one player in one page. 
-			$containerId = 'flvplayer2Container'.rand('1','10000');
-
-			// Flash code (XHTML)
-			$htmlCode[] = '<div id="'.$containerId.'"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> to see this player.</div>
-					<script type="text/javascript">
-						var s1 = new SWFObject("'.$extPath.'pi1/flvplayer.swf","mediaplayer","'.$this->conf['width'].'","'.$this->conf['height'].'","'.$this->conf['version'].'");
-						s1.addParam("allowfullscreen","'.$fullScreen.'");
-						s1.addVariable("width","'.$this->conf['width'].'");
-						s1.addVariable("height","'.$this->conf['height'].'");
-						s1.addVariable("file","'.$filePath.'");
-						s1.addVariable("autostart","'.$autoStart.'");
-						s1.write("'.$containerId.'");
-					</script>';
-*/
 			// Include Adobe Flash Player Version Detection
 			$GLOBALS['TSFE']->additionalHeaderData [$this->pi1->prefixId] = '<script type="text/JavaScript" src="'.t3lib_extMgm::siteRelPath("flvplayer2").'pi1/AC_OETags.js"></script>';
 			
@@ -221,10 +190,15 @@
 							"height", "'.$this->conf['height'].'",
 							"quality", "high",
 							"base", "'.t3lib_div::getIndpEnv('TYPO3_REQUEST_DIR').'",
-							"flashvars","width='.$this->conf['width'].'&height='.$this->conf['height'].'&file='.$filePath.'&autostart='.$autoStart.'",
+							"flashvars","width='.$this->conf['width']
+								.'&height='.$this->conf['height']
+								.'&file='.$filePath
+								.'&autostart='.$autoStart
+								.'&image=uploads/tx_flvplayer/'.$this->conf['image']
+								.'&controlbar='.$this->conf['playerParams.']['controlbar']
+								.'&fullscreen='.$fullScreen.'",
 							"allowScriptAccess","always",
-							"allowfullscreen", "true",
-							"menu", "false",		
+							"allowfullscreen","true",
 							"type", "application/x-shockwave-flash",
 							"codebase", "http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab",
 							"pluginspage", "http://www.adobe.com/go/getflashplayer"
@@ -242,28 +216,7 @@
 			// Return content
 			return implode(chr(10),$htmlCode);
 		}
-		
-		/**
-		 * Returns param tags
-		 * 
-		 * This function creates a param tag for each parameter specified in the
-		 * setup field.
-		 * 
-		 * @return		A param tag for each parameter.
-		 */
-		function writeFlashObjectParams() {
-			
-			// Storage
-			$params = array();
-			
-			// Build HTML <param> tags from TS setup
-			foreach($this->conf['swfParams.'] as $name => $value) {
-				$params[] = '<param name="' . $name . '" value="' . $value . '">';
-			}
-			
-			// Return tags
-			return implode(chr(10),$params);
-		}
+
 	}
 	
 	/**

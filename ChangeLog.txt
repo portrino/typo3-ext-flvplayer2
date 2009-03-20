@@ -1,0 +1,12 @@
+2009-03-20 Jose Antonio Guerra <jaguerra@icti.es>
+	* version 1.1 - Upload to TER
+	* Updated JW Player to 4.3.132
+	* Documentation updates with latest features
+
+
+2009-03-17 Raphael Waelterlin <rw@cabag.ch>
+	* pi1: removed menu flashvar (not available for the player)
+	* pi1: added controlbar flashvar
+	* pi1: added image flashvar
+	* pi1: removed unused php code
+	* flex: added image and controlbar
