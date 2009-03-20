@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "flvplayer2"
 #
-# Auto generated 21-05-2008 20:18
+# Auto generated 18-08-2008 12:58
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -31,7 +31,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'ICTI Consulting',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
-	'version' => '1.0.1',
+	'version' => '1.0.3',
 	'constraints' => array(
 		'depends' => array(
 			'typo3' => '3.5.0-0.0.0',
@@ -46,7 +46,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:16:{s:12:"ext_icon.gif";s:4:"3b2f";s:17:"ext_localconf.php";s:4:"c5ee";s:14:"ext_tables.php";s:4:"8f96";s:28:"ext_typoscript_constants.txt";s:4:"8c14";s:24:"ext_typoscript_setup.txt";s:4:"2738";s:19:"flexform_ds_pi1.xml";s:4:"4805";s:13:"locallang.php";s:4:"7bdf";s:16:"locallang_db.php";s:4:"369f";s:14:"doc/manual.sxw";s:4:"697a";s:16:"pi1/AC_OETags.js";s:4:"3d6a";s:14:"pi1/ce_wiz.gif";s:4:"ef09";s:31:"pi1/class.tx_flvplayer2_pi1.php";s:4:"7d25";s:39:"pi1/class.tx_flvplayer2_pi1_wizicon.php";s:4:"e004";s:13:"pi1/clear.gif";s:4:"cc11";s:19:"pi1/mediaplayer.swf";s:4:"69ef";s:16:"pi1/swfobject.js";s:4:"66d4";}',
+	'_md5_values_when_last_written' => 'a:16:{s:12:"ext_icon.gif";s:4:"3b2f";s:17:"ext_localconf.php";s:4:"c5ee";s:14:"ext_tables.php";s:4:"8f96";s:28:"ext_typoscript_constants.txt";s:4:"8c14";s:24:"ext_typoscript_setup.txt";s:4:"2738";s:19:"flexform_ds_pi1.xml";s:4:"4805";s:13:"locallang.xml";s:4:"65e2";s:16:"locallang_db.xml";s:4:"034a";s:14:"doc/manual.sxw";s:4:"697a";s:16:"pi1/AC_OETags.js";s:4:"3d6a";s:14:"pi1/ce_wiz.gif";s:4:"ef09";s:31:"pi1/class.tx_flvplayer2_pi1.php";s:4:"7d25";s:39:"pi1/class.tx_flvplayer2_pi1_wizicon.php";s:4:"6e05";s:13:"pi1/clear.gif";s:4:"cc11";s:19:"pi1/mediaplayer.swf";s:4:"69ef";s:16:"pi1/swfobject.js";s:4:"66d4";}',
 	'suggests' => array(
 	),
 );

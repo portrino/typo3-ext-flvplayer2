@@ -90,11 +90,9 @@
 		 */
 		function includeLocalLang() {
 			
-			// Include file
-			include(t3lib_extMgm::extPath('flvplayer2').'locallang.php');
-			
-			// Return file content
-			return $LOCAL_LANG;
+		$llFile = t3lib_extMgm::extPath('flvplayer2').'locallang.xml';
+		$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
+		return $LOCAL_LANG;
 		}
 	}
 	
