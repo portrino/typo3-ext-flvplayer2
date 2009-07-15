@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "flvplayer2"
 #
-# Auto generated 20-03-2009 13:04
+# Auto generated 15-07-2009 10:34
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'This Flash Video (FLV) Player allows you to show your videos more controlled and to a broader audience as with Quicktime, Windows Media or Real Media. This extension is based and backwards-compatible with extension flvplayer, adding standards compliance and an updated player.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '1.1.0',
+	'version' => '1.2.1',
 	'dependencies' => 'cms,lang,api_macmade',
 	'conflicts' => 'flvplayer',
 	'priority' => '',
@@ -46,7 +46,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:16:{s:13:"ChangeLog.txt";s:4:"e120";s:12:"ext_icon.gif";s:4:"3b2f";s:17:"ext_localconf.php";s:4:"c5ee";s:14:"ext_tables.php";s:4:"8f96";s:28:"ext_typoscript_constants.txt";s:4:"13cc";s:24:"ext_typoscript_setup.txt";s:4:"0a9f";s:19:"flexform_ds_pi1.xml";s:4:"522b";s:13:"locallang.xml";s:4:"65e2";s:16:"locallang_db.xml";s:4:"0b63";s:14:"doc/manual.sxw";s:4:"7c54";s:16:"pi1/AC_OETags.js";s:4:"3d6a";s:14:"pi1/ce_wiz.gif";s:4:"ef09";s:31:"pi1/class.tx_flvplayer2_pi1.php";s:4:"6a86";s:39:"pi1/class.tx_flvplayer2_pi1_wizicon.php";s:4:"6e05";s:13:"pi1/clear.gif";s:4:"cc11";s:19:"pi1/mediaplayer.swf";s:4:"ca3c";}',
+	'_md5_values_when_last_written' => 'a:16:{s:13:"ChangeLog.txt";s:4:"a515";s:12:"ext_icon.gif";s:4:"3b2f";s:17:"ext_localconf.php";s:4:"c5ee";s:14:"ext_tables.php";s:4:"8f96";s:28:"ext_typoscript_constants.txt";s:4:"13cc";s:24:"ext_typoscript_setup.txt";s:4:"0a9f";s:19:"flexform_ds_pi1.xml";s:4:"522b";s:13:"locallang.xml";s:4:"65e2";s:16:"locallang_db.xml";s:4:"0b63";s:14:"doc/manual.sxw";s:4:"ea50";s:16:"pi1/AC_OETags.js";s:4:"3d6a";s:14:"pi1/ce_wiz.gif";s:4:"ef09";s:31:"pi1/class.tx_flvplayer2_pi1.php";s:4:"2542";s:39:"pi1/class.tx_flvplayer2_pi1_wizicon.php";s:4:"6e05";s:13:"pi1/clear.gif";s:4:"cc11";s:19:"pi1/mediaplayer.swf";s:4:"ca3c";}',
 	'suggests' => array(
 	),
 );

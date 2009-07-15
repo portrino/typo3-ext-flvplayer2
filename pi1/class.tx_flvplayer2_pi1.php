@@ -160,7 +160,7 @@
 			$fullScreen = ($this->conf['playerParams.']['fullScreen']) ? 'true' : 'false';
 			
 			if($this->conf['url']){
-				$filePath = $this->conf['url'];
+				$filePath =	$this->cObj->stdWrap($this->conf['url'],$this->conf['url.']);
 			} else {
 				
 				// File path
@@ -176,6 +176,14 @@
 			
 			// Include Adobe Flash Player Version Detection
 			$GLOBALS['TSFE']->additionalHeaderData [$this->pi1->prefixId] = '<script type="text/JavaScript" src="'.t3lib_extMgm::siteRelPath("flvplayer2").'pi1/AC_OETags.js"></script>';
+	
+			// Allow <params> set from TS
+			$paramsString = "";
+			if(is_array($this->conf['swfParams.'])){
+				foreach($this->conf['swfParams.'] as $name => $value) {
+					$paramsString .= '"' . $name . '", "' . $value . '",';
+				}
+			}
 			
 			// Create the flash stuff
 			$htmlCode[]  = '
@@ -198,9 +206,10 @@
 								.'&controlbar='.$this->conf['playerParams.']['controlbar']
 								.'&fullscreen='.$fullScreen.'",
 							"allowScriptAccess","always",
-							"allowfullscreen","true",
+							"allowfullscreen","'.$fullScreen.'",
 							"type", "application/x-shockwave-flash",
 							"codebase", "http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab",
+							'.$paramsString.'
 							"pluginspage", "http://www.adobe.com/go/getflashplayer"
 						);
 					} else {  // flash is too old or we can\'t detect the plugin
@@ -209,7 +218,7 @@
 				// -->
 					/*]]>*/
 				</script>
-				<noscript>You need to install Flash Player!</noscript>
+				<noscript><p>You need to install Flash Player!</p></noscript>
 			';
 
 
