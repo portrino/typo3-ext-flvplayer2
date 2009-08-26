@@ -53,7 +53,18 @@
 								<show_thumbs>1</show_thumbs>
 							</config>
 						</TCEforms>
-					</image>
+					</image>					
+					<description>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.s_def.description</label>
+							<config>
+								<type>text</type>
+								<cols>48</cols>
+								<rows>5</rows>
+							</config>
+						</TCEforms>
+					</description>
 				</el>
 			</ROOT>
 		</sDEF>
@@ -186,7 +197,34 @@
 								<eval>num</eval>
 							</config>
 						</TCEforms>
-					</height>
+					</height>	
+					<align>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.s_flash.align</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>									
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.left</numIndex>
+										<numIndex index="1">left</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.middle</numIndex>
+										<numIndex index="1">middle</numIndex>
+									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">LLL:EXT:flvplayer2/locallang_db.php:tt_content.flexform_pi1.right</numIndex>
+										<numIndex index="1">right</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</align>
 					<!--
 					<loop>
 						<TCEforms>

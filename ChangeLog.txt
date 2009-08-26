@@ -1,3 +1,8 @@
+2009-08-26 Andrea Draheim <webmaster@pferdeecke.de>
+	* Added field "Description", text is shown under the video
+	* Added possibility to choose align of video
+
+
 2009-07-16 Jose Antonio Guerra <jaguerra@icti.es>
 	* version 1.2.1 - Upload to TER
 	* Now validates XHTML Strict (thanks to Emile Blume from Netcreators)

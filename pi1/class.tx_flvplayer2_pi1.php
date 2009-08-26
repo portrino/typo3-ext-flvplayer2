@@ -123,6 +123,7 @@
 				'url' => 'sDEF:url',
 				'file' => 'sDEF:file',
 				'image' => 'sDEF:image',
+				'description' => 'sDEF:description',
 				'playerParams.' => array(
 					'autoStart' => 'sPLAYER:autostart',
 					'fullScreen' => 'sPLAYER:fullscreen',
@@ -131,7 +132,15 @@
 				'width' => 'sFLASH:width',
 				'height' => 'sFLASH:height',
 				'version' => 'sFLASH:version',
+				'align' => 'sFLASH:align',
 			);
+			
+			// Include CSS-File
+			$cssFile = $this->conf['cssFile'] ? $this->conf['cssFile'] : t3lib_extMgm::siteRelPath('flvplayer2').'res/tx_flvplayer2.css';
+			$GLOBALS['TSFE']->additionalHeaderData[$this->extKey] = '
+			        <link rel="stylesheet" href="'.$cssFile.'" type="text/css" />
+		        ';
+
 			
 			// Ovverride TS setup with flexform
 			$this->conf = $this->api->fe_mergeTSconfFlex($flex2conf,$this->conf,$this->piFlexForm);
@@ -186,7 +195,8 @@
 			}
 			
 			// Create the flash stuff
-			$htmlCode[]  = '
+			$htmlCode[] = $this->conf['align'] ? '<div id="flvplayer2_'.$this->conf['align'].'" style="width:'.$this->conf['width'].'px">' : '';
+			$htmlCode[]  .= '
 				<script type="text/javascript">
 					/*<![CDATA[*/
 				<!--
@@ -220,6 +230,14 @@
 				</script>
 				<noscript><p>You need to install Flash Player!</p></noscript>
 			';
+			
+			if ($this->conf['description']) {
+				$htmlCode[] .= $this->conf['align'] ? '' : '<div style="width:'.$this->conf['width'].'px">';
+				$htmlCode[] .= '<br />'.$this->conf['description'];
+				$htmlCode[] .= $this->conf['align'] ? '' : '</div>';
+			}			
+			
+			$htmlCode[] .= $this->conf['align'] ? '</div>' : '';
 
 
 			// Return content
