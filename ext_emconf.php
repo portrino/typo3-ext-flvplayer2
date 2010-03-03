@@ -11,11 +11,11 @@
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Flash Video Player v2',
-	'description' => 'This Flash Video (FLV) Player allows you to show your videos more controlled and to a broader audience as with Quicktime, Windows Media or Real Media. This extension is based and backwards-compatible with extension flvplayer, adding standards compliance and an updated player.',
+	'title' => 'Flash Video Player v2 (FLV and MP4)',
+	'description' => 'This Video Player allows you to show your MP4 or FLV videos to a broader audience as with Quicktime, Windows Media or Real Media. This extension is based and backwards-compatible with extension flvplayer, adding standards compliance and an updated player (JW Player or Flowplayer).',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '1.2.1',
+	'version' => '1.2.1-dev',
 	'dependencies' => 'cms,lang,api_macmade',
 	'conflicts' => 'flvplayer',
 	'priority' => '',
@@ -29,7 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'lockType' => '',
 	'author' => 'Jose Antonio Guerra',
 	'author_email' => 'jaguerra@icti.es',
-	'author_company' => 'ICTI Consulting',
+	'author_company' => 'ICTI Internet Passion',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
 	'constraints' => array(

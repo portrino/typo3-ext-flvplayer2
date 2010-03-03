@@ -62,8 +62,29 @@ plugin.tx_flvplayer_pi1 {
 		controlbar = {$plugin.tx_flvplayer_pi1.playerParams.controlbar}
 	}
 	
+	useFlowPlayer = {$plugin.tx_flvplayer_pi1.useFlowPlayer}
+	
+	base = {$plugin.tx_flvplayer_pi1.base}
+	
 	// Default CSS styling
 	_CSS_DEFAULT_STYLE (
-
+		div.tx-flvplayer2-pi1 {
+		font-size:x-small;
+		}
+		
+		div#flvplayer2_middle {
+		text-align:center;
+		margin: 1em auto;
+		}
+		
+		div#flvplayer2_left {
+		text-align:center;
+		margin: 0 auto 0 0;
+		}
+		
+		div#flvplayer2_right {
+		text-align:center;
+		margin: 0 0 0 auto;
+		}
 	)
 }

@@ -101,7 +101,11 @@
 			$this->setConfig();
 			
 			// Build content
-			$content = $this->buildFlashCode();
+			if($this->conf['useFlowPlayer']){
+				$content = $this->buildFlashCodeFlowplayer();
+			} else {
+				$content = $this->buildFlashCode();
+			}
 			
 			// Return content
 			return $this->pi_wrapInBaseClass($content);
@@ -123,7 +127,7 @@
 				'url' => 'sDEF:url',
 				'file' => 'sDEF:file',
 				'image' => 'sDEF:image',
-				'description' => 'sDEF:description',
+				'splashImageMode' => 'sDEF:splashImageMode',
 				'playerParams.' => array(
 					'autoStart' => 'sPLAYER:autostart',
 					'fullScreen' => 'sPLAYER:fullscreen',
@@ -132,15 +136,7 @@
 				'width' => 'sFLASH:width',
 				'height' => 'sFLASH:height',
 				'version' => 'sFLASH:version',
-				'align' => 'sFLASH:align',
 			);
-			
-			// Include CSS-File
-			$cssFile = $this->conf['cssFile'] ? $this->conf['cssFile'] : t3lib_extMgm::siteRelPath('flvplayer2').'res/tx_flvplayer2.css';
-			$GLOBALS['TSFE']->additionalHeaderData[$this->extKey] = '
-			        <link rel="stylesheet" href="'.$cssFile.'" type="text/css" />
-		        ';
-
 			
 			// Ovverride TS setup with flexform
 			$this->conf = $this->api->fe_mergeTSconfFlex($flex2conf,$this->conf,$this->piFlexForm);
@@ -194,9 +190,14 @@
 				}
 			}
 			
+			if($this->conf['base']){
+				$base = $this->conf['base'];
+			}  else {
+				$base = t3lib_div::getIndpEnv('TYPO3_REQUEST_DIR');
+			}
+			
 			// Create the flash stuff
-			$htmlCode[] = $this->conf['align'] ? '<div id="flvplayer2_'.$this->conf['align'].'" style="width:'.$this->conf['width'].'px">' : '';
-			$htmlCode[]  .= '
+			$htmlCode[] .= '
 				<script type="text/javascript">
 					/*<![CDATA[*/
 				<!--
@@ -207,18 +208,18 @@
 							"width", "'.$this->conf['width'].'",
 							"height", "'.$this->conf['height'].'",
 							"quality", "high",
-							"base", "'.t3lib_div::getIndpEnv('TYPO3_REQUEST_DIR').'",
+							"base", "'.$base.'",
 							"flashvars","width='.$this->conf['width']
 								.'&height='.$this->conf['height']
 								.'&file='.$filePath
 								.'&autostart='.$autoStart
-								.'&image=uploads/tx_flvplayer/'.$this->conf['image']
+								.'&image='.$this->getSplashImageUrl()
 								.'&controlbar='.$this->conf['playerParams.']['controlbar']
 								.'&fullscreen='.$fullScreen.'",
 							"allowScriptAccess","always",
 							"allowfullscreen","'.$fullScreen.'",
 							"type", "application/x-shockwave-flash",
-							"codebase", "http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab",
+							"codebase", "http'.(t3lib_div::getIndpEnv('TYPO3_SSL')?'s':'').'://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab",
 							'.$paramsString.'
 							"pluginspage", "http://www.adobe.com/go/getflashplayer"
 						);
@@ -230,18 +231,108 @@
 				</script>
 				<noscript><p>You need to install Flash Player!</p></noscript>
 			';
-			
-			if ($this->conf['description']) {
-				$htmlCode[] .= $this->conf['align'] ? '' : '<div style="width:'.$this->conf['width'].'px">';
-				$htmlCode[] .= '<br />'.$this->conf['description'];
-				$htmlCode[] .= $this->conf['align'] ? '' : '</div>';
-			}			
-			
-			$htmlCode[] .= $this->conf['align'] ? '</div>' : '';
-
 
 			// Return content
 			return implode(chr(10),$htmlCode);
+		}
+		
+		function buildFlashCodeFlowplayer(){
+			
+			$uid = $this->cObj->data['uid'];
+						
+			$jsUrl = t3lib_extMgm::siteRelPath('flvplayer2').'pi1/flowplayer-3.1.4.min.js';
+			$swfUrl = t3lib_extMgm::siteRelPath('flvplayer2').'pi1/flowplayer-3.1.5.swf';
+			$GLOBALS['TSFE']->additionalHeaderData['flvplayer2-flowplayer'] = '<script type="text/javascript" src="'.$jsUrl.'"></script>';
+			
+			/**
+			 * Getting the config..
+			 */
+			// Autostart 
+			$autoStart = ($this->conf['playerParams.']['autoStart']) ? 'true' : 'false';
+			
+			// Allow fullscreen mode
+			$fullScreen = ($this->conf['playerParams.']['fullScreen']) ? 'true' : 'false';
+			
+			if($this->conf['url']){
+				$filePath =	$this->cObj->stdWrap($this->conf['url'],$this->conf['url.']);
+			} else {
+				// File path
+				$filePath = t3lib_div::getIndpEnv('TYPO3_SITE_URL').str_replace(PATH_site,'',t3lib_div::getFileAbsFileName($this->uploadDir . $this->conf['file']));
+				$filePath = str_replace(t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST'),'',$filePath);
+			}			
+			
+			$autoBuffering = 'true';
+						
+			// Create the flash stuff
+			if($this->conf['image']){
+				$splashImgUrl = $this->getSplashImageUrl();
+				$splashImg = '
+				    canvas: { 
+				        backgroundImage: "url('.$splashImgUrl.')",
+				        backgroundGradient: "none",
+				    }, 					
+				';
+				$autoBuffering = 'false';
+			} else {
+				$splashImg = "";
+			}
+	
+			
+			$htmlCode[]  = '
+			<a 
+				 href="'.$filePath.'"  
+				 style="display:block;width:'.$this->conf['width'].'px;height:'.$this->conf['height'].'px;"  
+				 id="flowplayer-'.$uid.'"> 
+			</a>
+			<script type="text/javascript">
+			/*<![CDATA[*/
+				flowplayer("flowplayer-'.$uid.'", "'.$swfUrl.'",  { 
+					'.$splashImg.'
+				    clip: { 
+				         
+				        // these two configuration variables does the trick 
+				        autoPlay: '.$autoStart.',  
+				        autoBuffering: '.$autoBuffering.' // <- do not place a comma here   
+				    }
+			
+				});
+			/*]]>*/	
+			</script>';
+			
+			return implode(chr(10),$htmlCode);
+		}		
+		
+		
+		function getSplashImageUrl(){
+			
+			$local_cObj = t3lib_div::makeInstance('tslib_cObj'); // Local cObj.
+
+			if ($this->conf['splashImageMode']) {
+				switch ($this->conf['splashImageMode']) {
+					case 'resize2max' :
+						$suf = 'm';
+						break;
+					case 'crop' :
+						$suf = 'c';
+						break;
+					case 'resize' :
+						$suf = '';
+						break;
+				}
+			}			
+			
+			$lConf = array(
+				'image.' => array(
+					'file' => 'uploads/tx_flvplayer/'.$this->conf['image'],
+					'file.' => array(
+						'width' => $this->conf['width'].$suf,
+						'height' => $this->conf['height']			
+					)
+
+				)
+			);
+
+			return $local_cObj->IMG_RESOURCE($lConf['image.']);			
 		}
 
 	}
