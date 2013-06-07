@@ -28,7 +28,7 @@
 								<type>group</type>
 								<internal_type>file</internal_type>
 								<allowed>flv,mp4,m4v</allowed>
-								<max_size>100000</max_size>
+								<max_size>1000000</max_size>
 								<uploadfolder>uploads/tx_flvplayer</uploadfolder>
 								<size>1</size>
 								<maxitems>1</maxitems>
