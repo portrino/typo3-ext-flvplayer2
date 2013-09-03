@@ -377,9 +377,20 @@ class tx_flvplayer2_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       }
 
       $videoCode = $matches[1];
+			$uid = $this->cObj->data['uid'];
+			$playerDomId = 'flvPlayer2Vimeo-'.$uid.'-'.rand(1,9999);
+
+			$additionalParams = '';
+
+			if($this->conf['playerParams.']['autoStart']){
+					$additionalParams .= '&amp;autoplay=1';
+			}
+
+			$additionalParams .= '&amp;api=1';
+			$additionalParams .= '&amp;player_id='.$playerDomId;
 
 
-      $htmlCode[] = '<iframe src="http://player.vimeo.com/video/'.$videoCode.'?title=0&amp;byline=0&amp;portrait=0" width="'.$this->conf['width'].'" height="'.$this->conf['height'].'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+      $htmlCode[] = '<iframe id="'.$playerDomId.'" src="http://player.vimeo.com/video/'.$videoCode.'?title=0&amp;byline=0&amp;portrait=0'.$additionalParams.'" width="'.$this->conf['width'].'" height="'.$this->conf['height'].'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 			
 			return implode(chr(10),$htmlCode);
 		}
