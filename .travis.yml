@@ -1,13 +1,17 @@
 language: php
 
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+env:
+  - DB=mysql TYPO3=master INTEGRATION=master
+  - DB=mysql TYPO3=TYPO3_6-1 INTEGRATION=master
+  - DB=mysql TYPO3=TYPO3_6-0 INTEGRATION=master
+
 matrix:
   include:
-    - php: 5.5
-      env: DB=mysql TYPO3=master INTEGRATION=master
-    - php: 5.5
-      env: DB=mysql TYPO3=TYPO3_6-1 INTEGRATION=master
-    - php: 5.4
-      env: DB=mysql TYPO3=TYPO3_6-0 INTEGRATION=master
     - php: 5.3
       env: DB=mysql TYPO3=TYPO3_4-7 INTEGRATION=TYPO3_4-7
     - php: 5.3
@@ -43,5 +47,5 @@ before_script:
   - if [[ "$DB" == "mysql" && -f  build-environment/dbimport/cli_users.sql ]]; then mysql -uroot typo3_test < build-environment/dbimport/cli_users.sql; fi
 
 script:
-  - phpLint all
+  - pushd . && cd typo3conf/ext/flvplayer2 && phpLint all && popd
   - php $PWD/typo3/cli_dispatch.phpsh phpunit -c typo3conf/ext/flvplayer2/Tests/Build/UnitTests.xml
