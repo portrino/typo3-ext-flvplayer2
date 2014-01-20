@@ -23,7 +23,7 @@ matrix:
 
 before_script:
   - sudo apt-get update && sudo apt-get install git
-# Install build dependencies
+# Install  build dependencies
   - cd ..
   - git clone --single-branch --branch $INTEGRATION --depth 1 git://github.com/typo3-ci/TYPO3-Travis-Integration.git build-environment
   - git clone --single-branch --branch $TYPO3 --depth 1 https://github.com/TYPO3/TYPO3.CMS.git core
