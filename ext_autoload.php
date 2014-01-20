@@ -3,7 +3,7 @@
 // This file was generated on 2014-01-20 13:08
 
 $extensionPath = t3lib_extMgm::extPath('flvplayer2');
-$extensionClassesPath = $extensionPath . 'classes/';
+$extensionClassesPath = $extensionPath . 'Classes/';
 return array(
 	'tx_flvplayer2_helper_youtube' => $extensionClassesPath . 'Helper/YouTube.php',
 );
