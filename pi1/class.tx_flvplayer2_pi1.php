@@ -29,8 +29,13 @@
 	 * @version		1.0
 	 */
 	
+// Typo3 FE plugin class
+	require_once(PATH_tslib.'class.tslib_pibase.php');
 	
-class tx_flvplayer2_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
+	// Developer API class
+	require_once(t3lib_extMgm::extPath('api_macmade').'class.tx_apimacmade.php');
+	
+class tx_flvplayer2_pi1 extends tslib_pibase {
 
 
 		/***************************************************************
@@ -51,10 +56,8 @@ class tx_flvplayer2_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Upload directory
 		var $uploadDir = 'uploads/tx_flvplayer/';
 
-		/**
-		 * @var \TYPO3\CMS\Extbase\Service\FlexFormService
-		 */
-		protected $flexFormService;	
+		// Version of the Developer API required
+		var $apimacmade_version = 1.9;
 
 
 		/***************************************************************
@@ -76,8 +79,6 @@ class tx_flvplayer2_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		 * @see			buildFlashCode
 		 */
 		function main($content,$conf) {
-
-				$this->flexFormService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\CMS\Extbase\Service\FlexFormService");
 
 				// Set class confArray TS from the function
 				$this->conf = $conf;
@@ -151,36 +152,29 @@ class tx_flvplayer2_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		 */
 		function setConfig() {
 
+
+				$api = new tx_apimacmade($this);
+				$this->pi_initPIflexForm();
+				$piFlexForm = $this->cObj->data['pi_flexform'];
+
 				// Mapping array for PI flexform
-				$flexFormArray = $this->flexFormService->convertFlexFormContentToArray($this->cObj->data['pi_flexform']);
-				$flexFormArray['playerParams.'] = array(
-						'autoStart' => $flexFormArray['autostart'],
-						'fullScreen' => $flexFormArray['fullscreen'],
-						'controlbar' => $flexFormArray['controlbar'],
+				$flex2conf = array(
+						'url' => 'sDEF:url',
+						'file' => 'sDEF:file',
+						'image' => 'sDEF:image',
+						'splashImageMode' => 'sDEF:splashImageMode',
+						'playerParams.' => array(
+								'autoStart' => 'sPLAYER:autostart',
+								'fullScreen' => 'sPLAYER:fullscreen',
+								'controlbar' => 'sPLAYER:controlbar',
+						),
+						'width' => 'sFLASH:width',
+						'height' => 'sFLASH:height',
+						'version' => 'sFLASH:version',
 				);
 
-				unset($flexFormArray['autostart']);
-				unset($flexFormArray['fullscreen']);
-				unset($flexFormArray['controlbar']);
-
-				/*
-				debug(
-						array(
-								'flex' =>  $flexFormArray,//  $this->piFlexForm,
-								'TS' => $this->conf 
-						)
-				);
-				*/
-
-				$this->conf = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($this->conf, $flexFormArray, FALSE, FALSE);
-
-				/*
-				debug(
-						array(
-								'TS merged' => $this->conf 
-						)
-				);	
-				*/			
+				// Ovverride TS setup with flexform
+				$this->conf = $api->fe_mergeTSconfFlex($flex2conf,$this->conf,$piFlexForm);			
 
 		}
 
