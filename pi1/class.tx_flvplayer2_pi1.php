@@ -29,8 +29,6 @@
  * @author		Jose Antonio Guerra <jaguerra@icti.es>
  */
 
-require_once(t3lib_extMgm::extPath('api_macmade') . 'class.tx_apimacmade.php');
-
 class tx_flvplayer2_pi1 extends tslib_pibase {
 
 
@@ -51,9 +49,6 @@ class tx_flvplayer2_pi1 extends tslib_pibase {
 
 		// Upload directory
 		public $uploadDir = 'uploads/tx_flvplayer/';
-
-		// Version of the Developer API required
-		public $apimacmade_version = 1.9;
 
 
 		/***************************************************************
@@ -139,16 +134,15 @@ class tx_flvplayer2_pi1 extends tslib_pibase {
 
 		/**
 		 * Set configuration array.
-		 * 
+		 *
 		 * This function is used to set the final configuration array of the
 		 * plugin, by providing a mapping array between the TS & the flexform
 		 * configuration.
-		 * 
+		 *
 		 * @return		Void
 		 */
 		protected function setConfig() {
 
-				$api = new tx_apimacmade($this);
 				$this->pi_initPIflexForm();
 				$piFlexForm = $this->cObj->data['pi_flexform'];
 
@@ -169,8 +163,49 @@ class tx_flvplayer2_pi1 extends tslib_pibase {
 				);
 
 				// Ovverride TS setup with flexform
-				$this->conf = $api->fe_mergeTSconfFlex($flex2conf, $this->conf, $piFlexForm);
+				$this->conf = $this->fe_mergeTSconfFlex($flex2conf, $this->conf, $piFlexForm);
 
+		}
+
+		/**
+		 * Merge plugin TS configuration with flexform configuration.
+		 *
+		 * This function merge the plugin TS configuration array with the
+		 * flexform configuration (priority is given to flexform). Everything
+		 * is done automatically with a mapping array containing the path of the
+		 * TS elements to replace, and the path of the flexform fields in the XML.
+		 *
+		 * @param       array       $mapArray           The mapping array with informations about values to replace
+		 * @param       array       $tsArray            The initial TS configuration array
+		 * @param       string      $flexRes            The flexform object (usually $this->pObj->cObj->data[ 'pi_flexform' ])
+		 * @return      array       The merged configuration array
+		 */
+		private function fe_mergeTSconfFlex( $mapArray, $tsArray, $flexRes )
+		{
+				if( !is_array($mapArray) || !is_array($tsArray) ) {
+						return false;
+				}
+				$tempConfig = $tsArray;
+				foreach( $mapArray as $key => $value ) {
+						if( is_array( $value ) ) {
+								$tempConfig[ $key ] = $this->fe_mergeTSconfFlex(
+										$value,
+										$tsArray[ $key ],
+										$flexRes
+								);
+						} else {
+								$flexInfo = explode( ':', $value );
+								$flexValue = ( string )$this->pi_getFFvalue(
+										$flexRes,
+										$flexInfo[ 1 ],
+										$flexInfo[ 0 ]
+								);
+								if( !empty( $flexValue ) || $flexValue == '0' ) {
+										$tempConfig[ $key ] = $flexValue;
+								}
+						}
+				}
+				return $tempConfig;
 		}
 
 		/**

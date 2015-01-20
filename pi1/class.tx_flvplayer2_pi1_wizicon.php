@@ -21,85 +21,33 @@
 	* 
 	* This copyright notice MUST APPEAR in all copies of the script!
 	***************************************************************/
-	
-	/** 
-	 * Class that adds the wizard icon.
-	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
-	 * @version		1.0
-	 */
-	
-	/**
-	 * [CLASS/FUNCTION INDEX OF SCRIPT]
-	 * 
-	 * SECTION:		1 - MAIN
-	 *     60:		function proc($wizardItems)
-	 *     91:		function includeLocalLang
-	 * 
-	 *				TOTAL FUNCTIONS: 2
-	 */
-	
-	class tx_flvplayer2_pi1_wizicon {
-		
-		
-		
-		
-		
-		/***************************************************************
-		 * SECTION 1 - MAIN
-		 *
-		 * Wizard items functions.
-		 ***************************************************************/
-		 
+
+class tx_flvplayer2_pi1_wizicon {
+
 		/**
-		 * Add wizard item to the backend
-		 * 
-		 * @param		$wizardItems		The wizard items
-		 * @return		The wizard item
-		 */
-		function proc($wizardItems) {
-			global $LANG;
-			
-			// Get locallang values
-			$LL = $this->includeLocalLang();
-			
-			// Wizard item
-			$wizardItems['plugins_tx_flvplayer_pi1'] = array(
-				
-				// Icon
-				'icon'=>t3lib_extMgm::extRelPath('flvplayer2').'pi1/ce_wiz.gif',
-				
-				// Title
-				'title'=>$LANG->getLLL('pi1_title',$LL),
-				
-				// Description
-				'description'=>$LANG->getLLL('pi1_plus_wiz_description',$LL),
-				
-				// Parameters
-				'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=flvplayer_pi1'
-			);
-			
-			// Return items
-			return $wizardItems;
-		}
-		
+	 	 * Path to locallang file (with : as postfix)
+	 	 *
+	 	 * @var string
+	 	 */
+		protected $locallangPath = 'LLL:EXT:flvplayer2/locallang.xml:';
+
 		/**
-		 * Include locallang values
-		 * 
-		 * @return		The content of the locallang file
-		 */
-		function includeLocalLang() {
-			
-		$llFile = t3lib_extMgm::extPath('flvplayer2').'locallang.xml';
-		$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
-		return $LOCAL_LANG;
+	 	 * Processing the wizard items array
+	 	 *
+	 	 * @param array $wizardItems
+	 	 * @return array
+	 	 */
+		public function proc($wizardItems = array()) {
+				$wizardItems['plugins_tx_flvplayer_pi1'] = array(
+						'icon'=>t3lib_extMgm::extRelPath('flvplayer2').'pi1/ce_wiz.gif',
+						'title' => $GLOBALS['LANG']->sL($this->locallangPath . 'pi1_title', TRUE),
+						'description' => $GLOBALS['LANG']->sL($this->locallangPath . 'pi1_plus_wiz_description', TRUE),
+						'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=flvplayer_pi1',
+						'tt_content_defValues' => array(
+								'CType' => 'list',
+						),
+				);
+				return $wizardItems;
 		}
-	}
-	
-	/**
-	 * XCLASS inclusion
-	 */
-	if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/flvplayer2/pi1/class.tx_flvplayer2_pi1_wizicon.php']) {
-		include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/flvplayer2/pi1/class.tx_flvplayer2_pi1_wizicon.php']);
-	}
+}
 ?>
