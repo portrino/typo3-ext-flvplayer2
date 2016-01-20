@@ -21,6 +21,8 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /** 
  * Plugin 'FLV Player' for the 'flvplayer2' extension.
@@ -29,7 +31,7 @@
  * @author		Jose Antonio Guerra <jaguerra@icti.es>
  */
 
-class tx_flvplayer2_pi1 extends tslib_pibase {
+class tx_flvplayer2_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 
 		/***************************************************************
@@ -113,14 +115,14 @@ class tx_flvplayer2_pi1 extends tslib_pibase {
 		 */
 		public function getVideoCode($videoUrl = NULL, $conf = NULL) {
 
-				$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+				$this->cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 
 				if (is_array($conf)) {
 						$this->conf = $conf;
 				}
 
 				if (is_array($this->conf)) {
-						$this->conf = t3lib_div::array_merge_recursive_overrule($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_flvplayer_pi1.'], $this->conf);
+						$this->conf = GeneralUtility::array_merge_recursive_overrule($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_flvplayer_pi1.'], $this->conf);
 				} else {
 						$this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_flvplayer_pi1.'];
 				}
@@ -228,18 +230,18 @@ class tx_flvplayer2_pi1 extends tslib_pibase {
 						$filePath =	$filePath =	$this->cObj->stdWrap($this->conf['url'], $this->conf['url.']);
 				} else {
 						// File path
-						$filePath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . str_replace(PATH_site, '', t3lib_div::getFileAbsFileName($this->uploadDir . $this->conf['file']));
-						$filePath = str_replace(t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST'), '', $filePath);
+						$filePath = GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . str_replace(PATH_site, '', GeneralUtility::getFileAbsFileName($this->uploadDir . $this->conf['file']));
+						$filePath = str_replace(GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'), '', $filePath);
 				}
 
-				$extPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . str_replace(PATH_site, '', t3lib_extMgm::extPath('flvplayer2'));
-				$extPath = str_replace(t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST'), '', $extPath);
+				$extPath = GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . str_replace(PATH_site, '', ExtensionManagementUtility::extPath('flvplayer2'));
+				$extPath = str_replace(GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'), '', $extPath);
 
 				// Storage
 				$htmlCode = array();
 
 				// Include Adobe Flash Player Version Detection
-				$GLOBALS['TSFE']->additionalHeaderData[$this->pi1->prefixId] = '<script type="text/JavaScript" src="' . t3lib_extMgm::siteRelPath("flvplayer2") . 'pi1/AC_OETags.js"></script>';
+				$GLOBALS['TSFE']->additionalHeaderData[$this->pi1->prefixId] = '<script type="text/JavaScript" src="' . ExtensionManagementUtility::siteRelPath("flvplayer2") . 'pi1/AC_OETags.js"></script>';
 
 				// Allow <params> set from TS
 				$paramsString = '';
@@ -252,7 +254,7 @@ class tx_flvplayer2_pi1 extends tslib_pibase {
 				if ($this->conf['base']) {
 						$base = $this->conf['base'];
 				} else {
-						$base = t3lib_div::getIndpEnv('TYPO3_REQUEST_DIR');
+						$base = GeneralUtility::getIndpEnv('TYPO3_REQUEST_DIR');
 				}
 
 				// Create the flash stuff
@@ -278,7 +280,7 @@ if (hasRightVersion) {  // if we\'ve detected an acceptable version
 				"allowScriptAccess","always",
 				"allowfullscreen","' . $fullScreen . '",
 				"type", "application/x-shockwave-flash",
-				"codebase", "http' . (t3lib_div::getIndpEnv('TYPO3_SSL')?'s':'') . '://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab",
+				"codebase", "http' . (GeneralUtility::getIndpEnv('TYPO3_SSL')?'s':'') . '://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab",
 				' . $paramsString . '
 				"pluginspage", "http://www.adobe.com/go/getflashplayer",
 				"wmode", "transparent"
@@ -300,8 +302,8 @@ if (hasRightVersion) {  // if we\'ve detected an acceptable version
 
 			$uid = $this->cObj->data['uid'];
 
-			$jsUrl = t3lib_extMgm::siteRelPath('flvplayer2') . 'pi1/flowplayer-3.1.4.min.js';
-			$swfUrl = t3lib_extMgm::siteRelPath('flvplayer2') . 'pi1/flowplayer-3.1.5.swf';
+			$jsUrl = ExtensionManagementUtility::siteRelPath('flvplayer2') . 'pi1/flowplayer-3.1.4.min.js';
+			$swfUrl = ExtensionManagementUtility::siteRelPath('flvplayer2') . 'pi1/flowplayer-3.1.5.swf';
 			$GLOBALS['TSFE']->additionalHeaderData['flvplayer2-flowplayer'] = '<script type="text/javascript" src="' . $jsUrl . '"></script>';
 
 			/**
@@ -314,8 +316,8 @@ if (hasRightVersion) {  // if we\'ve detected an acceptable version
 				$filePath =	$this->cObj->stdWrap($this->conf['url'], $this->conf['url.']);
 			} else {
 				// File path
-				$filePath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . str_replace(PATH_site, '', t3lib_div::getFileAbsFileName($this->uploadDir . $this->conf['file']));
-				$filePath = str_replace(t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST'), '', $filePath);
+				$filePath = GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . str_replace(PATH_site, '', GeneralUtility::getFileAbsFileName($this->uploadDir . $this->conf['file']));
+				$filePath = str_replace(GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'), '', $filePath);
 			}
 
 			$autoBuffering = 'true';
@@ -409,7 +411,7 @@ flowplayer("' . $playerDomId . '", ' . $flashParamsJSON . ',  {
 
 		protected function getSplashImageUrl(){
 
-			$local_cObj = t3lib_div::makeInstance('tslib_cObj');
+			$local_cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 
 			if ($this->conf['splashImageMode']) {
 				switch ($this->conf['splashImageMode']) {

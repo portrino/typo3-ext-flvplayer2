@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'This Video Player allows you to show your MP4 or FLV videos to a broader audience as with Quicktime, Windows Media or Real Media. This extension is based and backwards-compatible with extension flvplayer, adding standards compliance, an updated player (JW Player or Flowplayer) and improved support for YouTube and Vimeo.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '1.4.0',
+	'version' => '1.5.0',
 	'conflicts' => 'flvplayer',
 	'priority' => '',
 	'loadOrder' => '',
@@ -33,7 +33,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'CGLcompliance_note' => '',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '4.5.0-6.2.99',
+			'typo3' => '6.2.0-7.99.99',
 		),
 		'conflicts' => array(
 			'flvplayer' => '0.0.0-0.9.0',
@@ -41,7 +41,6 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => '',
 );
 
 ?>
