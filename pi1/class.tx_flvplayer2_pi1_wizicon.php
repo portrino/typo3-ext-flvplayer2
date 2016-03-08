@@ -22,6 +22,8 @@
 	* This copyright notice MUST APPEAR in all copies of the script!
 	***************************************************************/
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 class tx_flvplayer2_pi1_wizicon {
 
 		/**
@@ -39,7 +41,7 @@ class tx_flvplayer2_pi1_wizicon {
 	 	 */
 		public function proc($wizardItems = array()) {
 				$wizardItems['plugins_tx_flvplayer_pi1'] = array(
-						'icon'=>t3lib_extMgm::extRelPath('flvplayer2').'pi1/ce_wiz.gif',
+						'icon'=> ExtensionManagementUtility::extRelPath('flvplayer2').'pi1/ce_wiz.gif',
 						'title' => $GLOBALS['LANG']->sL($this->locallangPath . 'pi1_title', TRUE),
 						'description' => $GLOBALS['LANG']->sL($this->locallangPath . 'pi1_plus_wiz_description', TRUE),
 						'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=flvplayer_pi1',
